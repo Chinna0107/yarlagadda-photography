@@ -45,9 +45,9 @@ const Counter = ({ targetValue, duration = 2000, suffix = "" }) => {
 
 export const About = () => {
   const stats = [
-    { value: "150", suffix: "+", label: "Weddings Covered" },
-    { value: "300", suffix: "+", label: "Happy Clients" },
-    { value: "8", suffix: "+", label: "Years Experience" },
+    { value: "500", suffix: "+", label: "Weddings Covered" },
+    { value: "650", suffix: "+", label: "Happy Clients" },
+    { value: "25", suffix: "+", label: "Years Experience" },
     { value: "12", suffix: "+", label: "Awards / Features" }
   ];
 
@@ -91,11 +91,11 @@ export const About = () => {
             </p>
 
             <p className="text-sm text-silver/80 leading-relaxed font-light">
-              For nearly a decade, Yarlagadda Photography has stood at the crossroads of documentary realism and fine-art luxury portraiture. Based on a deep love for artistic storytelling, we specialize in high-end wedding documentation, cinematic couple narratives, and editorial portraits. 
+              For nearly a decade, Yarlagadda Photography has stood at the crossroads of documentary realism and fine-art luxury portraiture. Based in Guntur and guided by a deep love for artistic storytelling, we specialize in high-end wedding documentation, cinematic couple narratives, and editorial portraits. 
             </p>
 
             <p className="text-sm text-silver/80 leading-relaxed font-light">
-              We operate with a philosophy of absolute minimalism. By working with soft shadows, natural golden hour gradients, and candid human interactions, we create images that do not merely show what you looked like—they evoke exactly what you felt in that single, fleeting heartbeat.
+              Our promise is Capturing the Poetry of Life with honest emotion and careful craft. Couples and families who search for best photography in Guntur or best wedding photography in Guntur come to us for soft shadows, natural golden hour gradients, and candid human interactions that evoke exactly what they felt in that single, fleeting heartbeat.
             </p>
 
             {/* Core Values Rows */}

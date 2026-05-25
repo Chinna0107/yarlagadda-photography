@@ -117,7 +117,7 @@ export const Booking = () => {
                 </div>
                 <div className="flex flex-col text-left">
                   <span className="text-[10px] text-silver/50 tracking-wider uppercase">Availability</span>
-                  <span className="text-xs text-soft-white font-medium mt-0.5">Mon - Sat | 10:00 AM - 07:00 PM IST</span>
+                  <span className="text-xs text-soft-white font-medium mt-0.5">Mon - Sun | 09:00 AM - 09:00 PM IST</span>
                 </div>
               </div>
             </div>

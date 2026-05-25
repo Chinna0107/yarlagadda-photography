@@ -214,34 +214,34 @@ export const portfolioImages = {
       title: "Cultural Haldi Splash",
       caption: "Vivid yellow colors and dynamic movement of family smiles."
     },
-    {
-      id: "traditional-2",
-      category: "traditional",
-      url: img357,
-      title: "Sangeet Sparkles",
-      caption: "Dazzling high-motion festive rituals captured in dramatic focus."
-    },
-    {
-      id: "traditional-3",
-      category: "traditional",
-      url: img365,
-      title: "Sacred Fire Vows",
-      caption: "Archival documentation of traditional Indian ritual heartbeats."
-    },
-    {
-      id: "traditional-4",
-      category: "traditional",
-      url: img433,
-      title: "Sacred Warmth",
-      caption: "Capturing absolute joy and ritualistic devotion in Guntur."
-    },
-    {
-      id: "traditional-5",
-      category: "traditional",
-      url: img436,
-      title: "Bridal Adornments",
-      caption: "Exquisite candid documentation of cultural details."
-    }
+    // {
+    //   id: "traditional-2",
+    //   category: "traditional",
+    //   url: img357,
+    //   title: "Sangeet Sparkles",
+    //   caption: "Dazzling high-motion festive rituals captured in dramatic focus."
+    // },
+    // {
+    //   id: "traditional-3",
+    //   category: "traditional",
+    //   url: img365,
+    //   title: "Sacred Fire Vows",
+    //   caption: "Archival documentation of traditional Indian ritual heartbeats."
+    // },
+    // {
+    //   id: "traditional-4",
+    //   category: "traditional",
+    //   url: img433,
+    //   title: "Sacred Warmth",
+    //   caption: "Capturing absolute joy and ritualistic devotion in Guntur."
+    // },
+    // {
+    //   id: "traditional-5",
+    //   category: "traditional",
+    //   url: img436,
+    //   title: "Bridal Adornments",
+    //   caption: "Exquisite candid documentation of cultural details."
+    // }
   ]
 };
 

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getCategoryLabel } from '../config/serviceCategories';
 
 export const Lightbox = ({ isOpen, activeImage, images, onClose, onPrev, onNext }) => {
   
@@ -37,7 +38,7 @@ export const Lightbox = ({ isOpen, activeImage, images, onClose, onPrev, onNext 
               Yarlagadda Photography
             </span>
             <span className="text-xs text-silver/80 tracking-wider capitalize font-light mt-0.5">
-              Category: {activeImage.category}
+              Category: {getCategoryLabel(activeImage.category)}
             </span>
           </div>
 

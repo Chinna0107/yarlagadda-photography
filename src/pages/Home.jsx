@@ -8,13 +8,44 @@ import Testimonials from '../sections/Testimonials';
 import Instagram from '../sections/Instagram';
 import localCinematic from '../assets/YR400201.JPG';
 
+const homeStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Yarlagadda Photography',
+  url: 'https://yarlagaddaphotography.in/',
+  image: 'https://yarlagaddaphotography.in/logo.jpg',
+  telephone: '+91 98498 19634',
+  slogan: 'Capturing the Poetry of Life',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Guntur',
+    addressRegion: 'Andhra Pradesh',
+    addressCountry: 'IN'
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Guntur' },
+    { '@type': 'AdministrativeArea', name: 'Andhra Pradesh' }
+  ],
+  serviceType: [
+    'Wedding photography in Guntur',
+    'Candid photography in Guntur',
+    'Pre-wedding photography',
+    'Engagement photography',
+    'Maternity photography',
+    'Event photography'
+  ],
+  description: 'Yarlagadda Photography is a professional photography studio in Guntur specializing in wedding, candid, pre-wedding, engagement, maternity, baby, event, and cinematic portrait photography.'
+};
+
 export const Home = () => {
   return (
     <div className="w-full">
       <SEO 
-        title="Luxury Wedding & Portrait Photographer"
-        description="Explore the luxury cinematic photography portfolio of Yarlagadda Photography in Guntur. Specializing in high-end, fine-art wedding documentation, candid couple narratives, and editorial portraits."
-        keywords="Yarlagadda Photography, Guntur wedding photographer, luxury wedding photography, cinematic couple shoot, Guntur fine art photographer, editorial portraits"
+        title="Best Photography in Guntur"
+        description="Yarlagadda Photography offers best photography in Guntur for weddings, candid moments, pre-wedding shoots, engagements, maternity, baby shoots, events, and cinematic portraits."
+        keywords="Yarlagadda Photography, yarlagadda photography, best photography in Guntur, best wedding photography in Guntur, wedding photography in Guntur, wedding photographer Guntur, candid photography Guntur, pre wedding photography Guntur, engagement photography Guntur, maternity photography Guntur, baby photoshoot Guntur, event photography Guntur"
+        canonicalPath="/"
+        structuredData={homeStructuredData}
       />
       {/* 1. Fullscreen Visual Hero */}
       <Hero />
@@ -28,7 +59,7 @@ export const Home = () => {
             <div className="lg:col-span-5 relative group rounded-lg overflow-hidden border border-white/5 shadow-2xl">
               <img 
                 src={localCinematic} 
-                alt="Bridesmaid candid" 
+                alt="Best wedding photography in Guntur by Yarlagadda Photography" 
                 className="w-full h-[320px] object-cover transition-transform duration-[1200ms] group-hover:scale-105 filter group-hover:brightness-90"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-matte-black/50 to-transparent pointer-events-none" />
@@ -43,7 +74,10 @@ export const Home = () => {
                 Capturing the Poetry of Life
               </h2>
               <p className="text-xs md:text-sm text-silver/80 leading-relaxed font-light">
-                We believe photography is not merely about recording details—it is about capturing a feeling, a fleeting heartbeat suspended in time forever. Specializing in high-end wedding documentation and editorial couples portraiture.
+                We believe photography is not merely about recording details; it is about capturing a feeling, a fleeting heartbeat suspended in time forever. Yarlagadda Photography is known for best photography in Guntur, with refined wedding documentation, candid stories, and editorial couple portraits.
+              </p>
+              <p className="text-xs md:text-sm text-silver/70 leading-relaxed font-light">
+                For families searching for best wedding photography in Guntur, our focus is simple: honest emotions, elegant light, and timeless frames that feel personal long after the celebration ends.
               </p>
               <div className="mt-2">
                 <Link

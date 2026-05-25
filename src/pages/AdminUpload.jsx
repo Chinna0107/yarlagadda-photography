@@ -3,19 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, Trash2, LogOut, ImagePlus, CheckCircle, XCircle, Loader } from 'lucide-react';
 import { API } from '../config/api';
+import { SERVICE_CATEGORIES, getCategoryLabel, normalizeCategory } from '../config/serviceCategories';
 
-const CATEGORIES = [
-  { id: 'wedding', label: 'Weddings' },
-  { id: 'portrait', label: 'Portraits' },
-  { id: 'cinematic', label: 'Outdoor & Cinematic' },
-  { id: 'traditional', label: 'Traditional' },
-  { id: 'general', label: 'General' },
-];
+const DEFAULT_CATEGORY = 'wedding-photography';
 
 export default function AdminUpload() {
   const [images, setImages] = useState([]);
   const [filterCat, setFilterCat] = useState('all');
-  const [form, setForm] = useState({ title: '', caption: '', category: 'wedding' });
+  const [form, setForm] = useState({ title: '', caption: '', category: DEFAULT_CATEGORY });
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -55,7 +50,9 @@ export default function AdminUpload() {
   };
 
   const handleUpload = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
+    e?.stopPropagation();
+    if (uploading) return;
     if (!file) return showToast('Please select an image', 'error');
     setUploading(true);
     try {
@@ -72,7 +69,7 @@ export default function AdminUpload() {
       showToast('Image uploaded successfully!');
       setFile(null);
       setPreview(null);
-      setForm({ title: '', caption: '', category: 'wedding' });
+      setForm({ title: '', caption: '', category: DEFAULT_CATEGORY });
       loadImages();
     } catch (err) {
       showToast(err.message, 'error');
@@ -97,7 +94,9 @@ export default function AdminUpload() {
     navigate('/admin');
   };
 
-  const filtered = filterCat === 'all' ? images : images.filter(i => i.category === filterCat);
+  const filtered = filterCat === 'all'
+    ? images
+    : images.filter(i => normalizeCategory(i.category) === filterCat);
 
   return (
     <div className="min-h-screen bg-matte-black text-soft-white">
@@ -150,7 +149,7 @@ export default function AdminUpload() {
               </div>
             </div>
 
-            <form onSubmit={handleUpload} className="space-y-4">
+            <form onSubmit={handleUpload} className="space-y-4" noValidate>
 
               {/* Drop Zone */}
               <div
@@ -179,7 +178,7 @@ export default function AdminUpload() {
                   onChange={e => setForm({ ...form, category: e.target.value })}
                   className="w-full bg-white/3 border border-white/8 rounded-xl px-4 py-3 text-sm text-soft-white focus:outline-none focus:border-gold/40 transition-all"
                 >
-                  {CATEGORIES.map(c => <option key={c.id} value={c.id} className="bg-charcoal">{c.label}</option>)}
+                  {SERVICE_CATEGORIES.map(c => <option key={c.id} value={c.id} className="bg-charcoal">{c.label}</option>)}
                 </select>
               </div>
 
@@ -208,7 +207,8 @@ export default function AdminUpload() {
               </div>
 
               <motion.button
-                type="submit"
+                type="button"
+                onClick={handleUpload}
                 disabled={uploading}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
@@ -231,7 +231,7 @@ export default function AdminUpload() {
 
           {/* Filter tabs */}
           <div className="flex flex-wrap gap-2 mb-7">
-            {[{ id: 'all', label: 'All' }, ...CATEGORIES].map(c => (
+            {[{ id: 'all', label: 'All' }, ...SERVICE_CATEGORIES].map(c => (
               <button
                 key={c.id}
                 onClick={() => setFilterCat(c.id)}
@@ -273,7 +273,7 @@ export default function AdminUpload() {
 
                     {/* Info */}
                     <div className="absolute inset-x-0 bottom-0 p-3 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <span className="text-[9px] tracking-widest text-gold uppercase">{img.category}</span>
+                      <span className="text-[9px] tracking-widest text-gold uppercase">{getCategoryLabel(img.category)}</span>
                       <p className="text-xs text-soft-white font-light truncate">{img.title || 'Untitled'}</p>
                     </div>
 

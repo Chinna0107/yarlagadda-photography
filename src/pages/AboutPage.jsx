@@ -6,9 +6,10 @@ export const AboutPage = () => {
   return (
     <div className="w-full pt-16 bg-matte-black">
       <SEO 
-        title="The Artist & Storyteller"
-        description="Meet Yarlagadda, the principal photographer behind the lens. Discover our philosophy of natural lighting, soft shadows, and silent candids capturing life's poetry."
-        keywords="Yarlagadda, fine art photography philosophy, candid emotions, Guntur photography crew"
+        title="About Yarlagadda Photography"
+        description="Capturing the Poetry of Life at Yarlagadda Photography, a Guntur photography studio for weddings, candid stories, portraits, events, and timeless family celebrations."
+        keywords="Yarlagadda Photography, about Yarlagadda Photography, Capturing the Poetry of Life, best photography in Guntur, best wedding photography in Guntur, Guntur photography studio, candid wedding photographer Guntur"
+        canonicalPath="/about"
       />
       {/* Renders the full optimized About section */}
       <About />

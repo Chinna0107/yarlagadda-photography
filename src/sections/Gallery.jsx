@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { portfolioImages } from '../config/images';
 import Lightbox from '../components/Lightbox';
 import { API } from '../config/api';
+import { SERVICE_CATEGORIES, getCategoryLabel, normalizeCategory } from '../config/serviceCategories';
 
 export const Gallery = () => {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -13,13 +13,11 @@ export const Gallery = () => {
 
   const categories = [
     { id: 'all', label: 'All Work' },
-    { id: 'wedding', label: 'Weddings' },
-    { id: 'portrait', label: 'Portraits' },
-    { id: 'cinematic', label: 'Outdoor & Cinematic' },
-    { id: 'traditional', label: 'Traditional' }
+    ...SERVICE_CATEGORIES
   ];
 
   const [dbImages, setDbImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch(`${API}/images`)
@@ -36,16 +34,14 @@ export const Gallery = () => {
           setDbImages(mapped);
         }
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setIsLoading(false));
   }, []);
-
-  // Merge static + db images (db images first)
-  const allImages = [...dbImages, ...portfolioImages.gallery];
 
   // Filter images based on state selection
   const filteredImages = activeFilter === 'all' 
-    ? allImages 
-    : allImages.filter(img => img.category === activeFilter);
+    ? dbImages 
+    : dbImages.filter(img => normalizeCategory(img.category) === activeFilter);
 
   // Lightbox handlers
   const openLightbox = (image) => {
@@ -119,61 +115,66 @@ export const Gallery = () => {
           ))}
         </div>
 
-        {/* 2. ASYMMETRICAL EDITORIAL MASONRY GRID */}
-        <motion.div 
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredImages.map((image, index) => {
-              // Create dynamic editorial spans to mimic an asymmetric masonry layout
-              // For example: indexes 0, 5, 8 span larger areas for visual rhythm
-              let gridClasses = "lg:col-span-4"; // Default
-              if (index % 5 === 0) {
-                gridClasses = "lg:col-span-8 lg:row-span-2 h-[350px] md:h-[620px]";
-              } else {
-                gridClasses = "lg:col-span-4 h-[250px] md:h-[295px]";
-              }
+        {isLoading ? (
+          <div className="h-64 flex items-center justify-center text-xs tracking-widest uppercase text-silver/40">
+            Loading gallery
+          </div>
+        ) : filteredImages.length === 0 ? (
+          <div className="h-64 flex items-center justify-center text-xs tracking-widest uppercase text-silver/40">
+            No images uploaded yet
+          </div>
+        ) : (
+          <motion.div 
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredImages.map((image, index) => {
+                // Create dynamic editorial spans to mimic an asymmetric masonry layout
+                let gridClasses = "lg:col-span-4";
+                if (index % 5 === 0) {
+                  gridClasses = "lg:col-span-8 lg:row-span-2 h-[350px] md:h-[620px]";
+                } else {
+                  gridClasses = "lg:col-span-4 h-[250px] md:h-[295px]";
+                }
 
-              return (
-                <motion.div
-                  key={image.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5 }}
-                  onClick={() => openLightbox(image)}
-                  className={`${gridClasses} relative overflow-hidden rounded-lg border border-white/5 cursor-pointer group shadow-lg`}
-                >
-                  {/* Photo Asset with Zoom Hover */}
-                  <img
-                    src={image.url}
-                    alt={image.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-[1200ms] cubic-bezier(0.19, 1, 0.22, 1) group-hover:scale-105 filter group-hover:brightness-[0.85] contrast-[1.05]"
-                  />
+                return (
+                  <motion.div
+                    key={image.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.5 }}
+                    onClick={() => openLightbox(image)}
+                    className={`${gridClasses} relative overflow-hidden rounded-lg border border-white/5 cursor-pointer group shadow-lg`}
+                  >
+                    <img
+                      src={image.url}
+                      alt={image.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-[1200ms] cubic-bezier(0.19, 1, 0.22, 1) group-hover:scale-105 filter group-hover:brightness-[0.85] contrast-[1.05]"
+                    />
 
-                  {/* Soft Vignette Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
 
-                  {/* Minimal Caption Overlay on Hover */}
-                  <div className="absolute inset-x-0 bottom-0 p-6 z-20 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end text-left">
-                    <span className="text-[9px] tracking-widest text-gold uppercase font-medium">
-                      {image.category}
-                    </span>
-                    <h3 className="text-xl text-soft-white font-serif mt-1 font-light tracking-wide">
-                      {image.title}
-                    </h3>
-                    <p className="text-[10px] text-silver/70 font-light mt-1.5 line-clamp-1">
-                      {image.caption}
-                    </p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
-        </motion.div>
+                    <div className="absolute inset-x-0 bottom-0 p-6 z-20 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end text-left">
+                      <span className="text-[9px] tracking-widest text-gold uppercase font-medium">
+                        {getCategoryLabel(image.category)}
+                      </span>
+                      <h3 className="text-xl text-soft-white font-serif mt-1 font-light tracking-wide">
+                        {image.title}
+                      </h3>
+                      <p className="text-[10px] text-silver/70 font-light mt-1.5 line-clamp-1">
+                        {image.caption}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </motion.div>
+        )}
 
         {/* 3. LIGHTBOX SYSTEM */}
         <Lightbox
