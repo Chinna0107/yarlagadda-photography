@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff, Lock, Mail, Shield } from 'lucide-react';
-
-const API = 'http://localhost:5000/api';
+import { API } from '../config/api';
 
 export default function AdminLogin() {
   const [form, setForm] = useState({ email: '', password: '' });

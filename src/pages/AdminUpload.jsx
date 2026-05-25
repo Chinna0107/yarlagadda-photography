@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, Trash2, LogOut, ImagePlus, CheckCircle, XCircle, Loader } from 'lucide-react';
-
-const API = 'http://localhost:5000/api';
+import { API } from '../config/api';
 
 const CATEGORIES = [
   { id: 'wedding', label: 'Weddings' },

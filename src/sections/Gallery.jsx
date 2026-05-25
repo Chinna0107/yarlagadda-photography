@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioImages } from '../config/images';
 import Lightbox from '../components/Lightbox';
-
-const API = 'http://localhost:5000/api';
+import { API } from '../config/api';
 
 export const Gallery = () => {
   const [activeFilter, setActiveFilter] = useState('all');
