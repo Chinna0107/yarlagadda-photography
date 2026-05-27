@@ -148,7 +148,7 @@ export const Footer = () => {
             © {currentYear} Yarlagadda Photography. All Rights Reserved.
           </span>
           <span className="flex items-center gap-1.5 pl-0.5">
-            Archival Quality Handcrafted Presentation
+            Made with <i>passion</i> by <a href="https://zewo.in" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-soft-white transition-colors duration-300">Zewo</a>
           </span>
         </div>
 
